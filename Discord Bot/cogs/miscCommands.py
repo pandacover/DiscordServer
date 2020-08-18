@@ -10,7 +10,7 @@ class mainCog(commands.Cog):
         embed = discord.Embed(title = "Otaku Realm Beta Website!", 
         description = "Website is still under construction!", 
         color = discord.Color(0x000000),
-        url = "https://luvmakin01.github.io/DiscordServer/htmls/otaku.html")
+        url = "https://luvmakin01.github.io/DiscordServer/Discord%20WebPage/htmls/otaku.html")
         embed.set_footer(text = 'Created by OR Dev team.')
         await ctx.send(embed=embed)
 
