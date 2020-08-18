@@ -1,0 +1,86 @@
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  font-family: "Architects Daughter", cursive;
+}
+
+nav {
+  height: 35px;
+  font-family: "Architects Daughter", cursive;
+  width: 100%;
+  background-color: white;
+}
+
+nav .nav-bar {
+  background-color: transparent;
+  float: right;
+  height: 25px;
+  display: flex;
+}
+
+nav .nav-bar a {
+  text-decoration: none;
+  font-size: 17px;
+  color: black;
+  padding: 6px 50px;
+}
+
+nav .nav-bar a:hover {
+  color: lightblue;
+}
+
+nav .nav-bar a:focus {
+  color: lightblue;
+}
+
+.icon {
+  display: flex;
+  flex-flow: row;
+  color: white;
+  box-shadow: 10px 10px 10px cyan;
+  width: 400px;
+}
+
+.icon .icon-image {
+  background-image: url("../img/image-1.jpg");
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+}
+
+.icon .icon-text {
+  padding: 60px 0 0 0;
+  margin-left: -30px;
+}
+
+.heading {
+  position: absolute;
+  margin: -120px 0px 10px 580px;
+}
+
+.heading .head-text {
+  color: white;
+  font-size: 110px;
+}
+
+.text {
+  display: block;
+  position: absolute;
+  color: white;
+  left: 200px;
+  top: 300px;
+}
+
+.text figure {
+  background-image: url("https://cdn.wallpapersafari.com/95/31/HwBoGe.jpg");
+  background-size: cover;
+  width: 400px;
+  height: 200px;
+  position: absolute;
+  top: -75px;
+  left: 500px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+}
