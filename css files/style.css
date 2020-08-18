@@ -57,6 +57,7 @@ nav .nav-bar a:focus {
 .heading {
   position: absolute;
   margin: -120px 0px 10px 580px;
+  width: 100%;
 }
 
 .heading .head-text {
