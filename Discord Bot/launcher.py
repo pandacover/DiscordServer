@@ -24,7 +24,7 @@ async def on_error(err, *args, **kwargs):
 async def on_command_error(ctx, exc):
     if isinstance(exc, CommandNotFound):
         flag = 0
-        list1 = ['website','echo', 'purge','ping', 'set']
+        list1 = ['website','echo', 'purge','ping', 'set_logs', 'set_suggest', 'kick', 'suggest']
         list2 = []
         for word in ctx.message.content:
             list2.append(word)
@@ -36,7 +36,7 @@ async def on_command_error(ctx, exc):
         
         if flag == 0:
             await ctx.send('Command not found!')
-    
+
     elif hasattr(exc, "original"):
         raise exc.original
 
@@ -46,4 +46,5 @@ async def echo(ctx, *, content):
 
 bot.load_extension("cogs.modCommands") 
 bot.load_extension("cogs.miscCommands")   
+bot.load_extension("cogs.reaction")
 bot.run(token)
