@@ -1,86 +1,111 @@
 body {
-  background-color: black;
-  margin: 0;
   padding: 0;
-  font-family: "Architects Daughter", cursive;
+  margin: 0;
+  font-size: 20px;
+  font-family: "Kalam", cursive;
+  background-color: black;
+  background-image: url("https://imgur.com/V0vA6vf.jpg");
+  width: 100%;
 }
 
 nav {
-  height: 35px;
-  font-family: "Architects Daughter", cursive;
   width: 100%;
-  background-color: white;
 }
 
-nav .nav-bar {
-  background-color: transparent;
-  height: 25px;
-  display: flex;
+.top-img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 230px;
+  background-image: url("https://wallpapercave.com/wp/wp2174935.jpg");
+  background-size: cover;
+  z-index: -1;
 }
 
-nav .nav-bar a {
+.nav-bar {
+  margin: 200px 0 0 50px;
+}
+
+.nav-bar .item-menu {
+  display: inline-block;
   text-decoration: none;
-  font-size: 17px;
-  color: black;
-  padding: 6px 50px;
-}
-
-nav .nav-bar a:hover {
-  color: lightblue;
-}
-
-nav .nav-bar a:focus {
-  color: lightblue;
-}
-
-.icon {
-  display: flex;
-  flex-flow: row;
   color: white;
-  box-shadow: 10px 10px 10px cyan;
-  width: 400px;
-}
-
-.icon .icon-image {
-  background-image: url("../img/image-1.jpg");
-  width: 100px;
-  height: 100px;
-  background-size: cover;
-}
-
-.icon .icon-text {
-  padding: 60px 0 0 0;
-  margin-left: -30px;
-}
-
-.heading {
-  position: absolute;
-  margin: -120px 0px 10px 580px;
-  width: 100%;
-}
-
-.heading .head-text {
-  color: white;
-  font-size: 100px;
-}
-
-.text {
-  display: block;
-  position: absolute;
-  color: white;
-  left: 200px;
-  top: 300px;
-}
-
-.text figure {
-  background-image: url("https://cdn.wallpapersafari.com/95/31/HwBoGe.jpg");
-  background-size: cover;
-  width: 400px;
-  height: 200px;
-  position: absolute;
-  top: -75px;
-  left: 500px;
+  padding: 0px 40px 0px 40px;
   border: 1px solid transparent;
-  border-radius: 10px;
-  background-repeat: no-repeat;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  margin: 0px -8px 0 0;
+}
+
+.nav-bar #item-home {
+  padding: 0 30px 0 30px;
+  background-color: rgb(0, 72, 186, 0.85);
+}
+
+.nav-bar #item-staff {
+  padding: 0 30px 0 30px;
+  background-color: rgb(102, 204, 0, 0.85);
+}
+
+.nav-bar #item-support {
+  padding: 0 30px 0 30px;
+  background-color: rgb(204, 204, 0, 0.85);
+}
+
+.nav-bar #item-staff .staff-text {
+  font-family: "Kalam", cursive;
+}
+
+.nav-bar .item-menu {
+  height: 30px;
+  transition: transform 0.25s, height 0.25s;
+}
+
+.nav-bar .item-menu span {
+  transition: opacity 0.19s;
+}
+
+.nav-bar .item-menu .home {
+  font-size: 12px;
+  position: absolute;
+  margin: 25px 0 0 -23px;
+  opacity: 0;
+}
+
+.nav-bar .item-menu .staff {
+  font-size: 12px;
+  position: absolute;
+  margin: 23px 0 0 -102px;
+  opacity: 0;
+}
+
+.nav-bar #item-support .support {
+  font-size: 12px;
+  position: absolute;
+  margin: 23px 0 0 -70px;
+  opacity: 0;
+}
+
+.body {
+  background-color: rgb(10, 10, 9, 1);
+  width: 98%;
+  height: 1000px;
+  position: absolute;
+  top: 230px;
+  left: 12px;
+}
+
+/*nav bar transition effects*/
+
+.nav-bar .item-menu:hover span {
+  opacity: 1;
+}
+
+.nav-bar .item-menu:hover {
+  transform: translateY(-15px);
+  height: 45px;
+}
+
+.nav-bar #item-support:hover .support {
+  opacity: 1;
 }

@@ -23,7 +23,19 @@ async def on_error(err, *args, **kwargs):
 @bot.event
 async def on_command_error(ctx, exc):
     if isinstance(exc, CommandNotFound):
-        await ctx.send('Command not found!')
+        flag = 0
+        list1 = ['website','echo', 'purge','ping', 'set']
+        list2 = []
+        for word in ctx.message.content:
+            list2.append(word)
+        for words in list1:
+            if list2[1] == words[:1]:
+                await ctx.send('Did you mean `/' + words + '`?')
+                flag = 1
+                break
+        
+        if flag == 0:
+            await ctx.send('Command not found!')
     
     elif hasattr(exc, "original"):
         raise exc.original
