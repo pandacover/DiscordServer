@@ -37,12 +37,7 @@ class mainCog(commands.Cog):
             for target in targets:
                     if target != ctx.author:
                         await target.kick(reason=reason)
-                        embed = discord.Embed(title = "Kicked Member", description = 'Command used by {}'.format(ctx.author) + '!\nKicked {}'.format(target) + '!', color = discord.Color(0xff0000))
-                        embed.set_footer(text = 'Developed by OR Dev Team.')
-                        file = open('./json/channels.json', 'r')
-                        data = json.load(file)
-                        channel = data["logs"]
-                        await self.bot.get_channel(channel).send(embed=embed)            
+                        await self.send_log(ctx.author, 'Kick command was used by{}\nTo kick{}'.format(ctx.author, target))
                     else:
                         await ctx.send('You cannot kick yourself!')
 

@@ -36,6 +36,16 @@ class mainCog(commands.Cog):
             json.dump(data, tf)
         await ctx.send('Channel set successfully!')
 
+    @commands.command()
+    async def help(self, ctx):
+        embed1 = discord.Embed(title = "Miscellaneous Commands", description = "`help`: Need to see commands?\n`suggest`: Have suggestions for server?\n`website`: Check out our website!", color = discord.Color(0x00ffff))
+        embed1.set_author(name = "Luv")
+        embed1.set_footer(text = "Developed by OR Dev Team.")
+        embed2 = discord.Embed(title = "", description = "`kick`: Someone's bugging the server? Yeet them.\n`ping`: Checkout the latency of the trashy bot!\n`purge`: Tired of deleting messages one by one? Well you know what to do!\n`set_log`: Set the log channel!\n`set_suggest`: Set the suggestion channel!", color = discord.Color(0xff0000))
+        embed2.set_author(name = "Luv")
+        embed2.set_footer(text = "Developed by OR Dev Team.")
+        await ctx.send(embed=embed1)
+        await ctx.send(embed=embed2)
 
 def setup(bot):
     bot.add_cog(mainCog(bot))
