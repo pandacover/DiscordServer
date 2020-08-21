@@ -3,7 +3,7 @@ body {
   padding: 0;
   color: white;
   font-size: 17px;
-  background-color: black;
+  background-color: black !important;
   font-family: "Neucha", cursive;
 }
 
@@ -85,55 +85,9 @@ nav {
   padding: 4px 0 10px 0;
 }
 
-.body-invite {
-  color: black;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  padding: 30px 0 0 10px;
-}
-
-.body-invite .invite-container {
-  width: 30%;
-  background-color: white;
-}
-
-.invite-container .invite-title {
-  padding: 7px 0 0 10px;
-}
-
-.invite-text {
-  display: flex;
-  flex-flow: row;
-}
-
-.icon {
-  padding: 0 0 0 0;
-}
-
-.icon figure {
-  width: 45px;
-  height: 45px;
-  background-image: url("../img/pfp.jpg");
-  background-size: cover;
-}
-
-.invite-text .text {
-  padding: 30px 0 0 0;
-}
-
-.invite-text .join-button {
-  margin: 20px 0 0px 30px;
-  padding: 0 0 0 0;
-}
-
-.invite-text .join-button a button {
-  background-color: #43b581;
-  text-decoration: none;
-  color: white;
-  border: none;
-  padding: 10px 25px 10px 25px;
-  font-family: sans-serif;
+.btn {
+  background-color: #43b581 !important;
+  border: none !important;
 }
 
 .slideshow {
@@ -144,8 +98,7 @@ nav {
 
 .slideshow-container {
   padding: 50px 0 0 0;
-  width: 600px;
-  height: 300px;
+  width: 400px;
 }
 
 .slide {
