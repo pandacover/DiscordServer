@@ -1,110 +1,190 @@
 body {
-  padding: 0;
   margin: 0;
-  font-size: 20px;
-  font-family: "Kalam", cursive;
+  padding: 0;
+  color: white;
+  font-size: 17px;
   background-color: black;
-  width: 100%;
+  font-family: "Neucha", cursive;
 }
 
 nav {
+  padding: 0;
+  margin: 0;
   width: 100%;
 }
 
-.top-img {
-  position: absolute;
-  top: 0;
+.nav-container {
   width: 100%;
-  height: 230px;
-  background-image: url("https://wallpapercave.com/wp/wp2174935.jpg");
-  background-size: cover;
-  z-index: -1;
+  background-color: lightblue;
 }
 
-.nav-bar {
-  margin: 200px 0 0 50px;
+.nav-container .link-container {
+  display: flex;
+  flex-flow: row;
+  width: 50%;
 }
 
-.nav-bar .item-menu {
-  display: inline-block;
+.nav-item {
   text-decoration: none;
   color: white;
-  padding: 0px 40px 0px 40px;
-  border: 1px solid transparent;
-  border-top-right-radius: 25px;
-  border-top-left-radius: 25px;
-  margin: 0px -8px 0 0;
+  padding: 5px 5px 5px 5px;
 }
 
-.nav-bar #item-home {
-  padding: 0 30px 0 30px;
-  background-color: rgb(0, 72, 186, 0.85);
+.nav-item .inline-block {
+  display: inline-block;
+  padding: 5px 15px 5px 15px;
+  background-color: transparent;
+  text-align: center;
 }
 
-.nav-bar #item-staff {
-  padding: 0 30px 0 30px;
-  background-color: rgb(102, 204, 0, 0.85);
+.nav-container .social-media {
+  display: flex;
+  flex-flow: row-reverse;
+  float: right;
+  width: 49%;
+  margin: -30px 0 0 0;
 }
 
-.nav-bar #item-support {
-  padding: 0 30px 0 30px;
-  background-color: rgb(204, 204, 0, 0.85);
+.social-item {
+  text-decoration: none;
+  color: black;
+  padding: 0 0px 0 0px;
 }
 
-.nav-bar #item-staff .staff-text {
-  font-family: "Kalam", cursive;
-}
-
-.nav-bar .item-menu {
-  height: 30px;
-  transition: transform 0.25s, height 0.25s;
-}
-
-.nav-bar .item-menu span {
-  transition: opacity 0.19s;
-}
-
-.nav-bar .item-menu .home {
-  font-size: 12px;
-  position: absolute;
-  margin: 25px 0 0 -23px;
-  opacity: 0;
-}
-
-.nav-bar .item-menu .staff {
-  font-size: 12px;
-  position: absolute;
-  margin: 23px 0 0 -102px;
-  opacity: 0;
-}
-
-.nav-bar #item-support .support {
-  font-size: 12px;
-  position: absolute;
-  margin: 23px 0 0 -70px;
-  opacity: 0;
+.social-item .block {
+  display: inline-block;
+  padding: 0 10px 0 10px;
+  background-color: transparent;
 }
 
 .body {
-  background-color: rgb(10, 10, 9, 1);
-  width: 98%;
-  height: 1000px;
-  position: absolute;
-  top: 230px;
-  left: 12px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 10px 0 0 0;
+  text-align: center;
+  width: 100%;
 }
 
-/*nav bar transition effects*/
-
-.nav-bar .item-menu:hover span {
-  opacity: 1;
+.body .body-intro {
+  width: 70%;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: lightpink;
+  padding: 20px 0 20px 0;
 }
 
-.nav-bar .item-menu:hover {
-  transform: translateY(-15px);
+.body-intro .body-title {
+  font-size: 25px;
+  text-shadow: 4px 4px 5px lightcoral;
+  letter-spacing: 2px;
+}
+
+.body-intro .body-text {
+  display: inline-block;
+  padding: 4px 0 10px 0;
+}
+
+.body-invite {
+  color: black;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 30px 0 0 10px;
+}
+
+.body-invite .invite-container {
+  width: 30%;
+  background-color: white;
+}
+
+.invite-container .invite-title {
+  padding: 7px 0 0 10px;
+}
+
+.invite-text {
+  display: flex;
+  flex-flow: row;
+}
+
+.icon {
+  padding: 0 0 0 0;
+}
+
+.icon figure {
+  width: 45px;
   height: 45px;
+  background-image: url("../img/pfp.jpg");
+  background-size: cover;
 }
 
-.nav-bar #item-support:hover .support {
-  opacity: 1;
+.invite-text .text {
+  padding: 30px 0 0 0;
+}
+
+.invite-text .join-button {
+  margin: 20px 0 0px 30px;
+  padding: 0 0 0 0;
+}
+
+.invite-text .join-button a button {
+  background-color: #43b581;
+  text-decoration: none;
+  color: white;
+  border: none;
+  padding: 10px 25px 10px 25px;
+  font-family: sans-serif;
+}
+
+.slideshow {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+.slideshow-container {
+  padding: 50px 0 0 0;
+  width: 600px;
+  height: 300px;
+}
+
+.slide {
+  display: none;
+}
+
+img {
+  vertical-align: center;
+}
+
+/* animations */
+
+.inline-block:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.3;
+}
+
+.block:hover {
+  font-size: 19px;
+  padding: 0 0 0 -2px;
+}
+
+a button:hover {
+  cursor: pointer;
+}
+
+.fade {
+  animation: fade 3s ease-in-out 0s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

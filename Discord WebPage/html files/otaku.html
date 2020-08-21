@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Otaku Realm Website</title>
     <link href="../css files/style.css" rel="stylesheet" />
-    <script src="../javascript files/responsive.js"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Neucha&display=swap"
       rel="stylesheet"
     />
     <script
@@ -15,44 +14,88 @@
   </head>
 
   <body>
-    <div class="top-img"></div>
     <header>
       <nav>
-        <div class="nav-bar" id="nav-bar">
-          <a
-            href="./otaku.html"
-            target="_parent"
-            name="item-menu"
-            class="item-menu"
-            id="item-home"
-          >
-            <i class="fa fa-home"></i><span class="home">Home</span>
-          </a>
-          <a
-            href="#"
-            target="_parent"
-            name="item-menu"
-            class="item-menu"
-            id="item-staff"
-          >
-            <i class="fas fa-user-shield"></i
-            ><span class="staff-text">&nbsp;Staff</span
-            ><span class="staff">Check out our staff team!</span>
-          </a>
-          <a
-            href="#"
-            target="_parent"
-            name="item-menu"
-            class="item-menu"
-            id="item-support"
-          >
-            <i class="fas fa-phone-alt"></i
-            ><span class="support-text">&nbsp;Support</span
-            ><span class="support">Need help?</span>
-          </a>
+        <div class="nav-container">
+          <div class="link-container">
+            <a href="#" class="nav-item home"
+              ><div class="inline-block item-home"><span>Home</span></div></a
+            >
+            <a href="#" class="nav-item staff"
+              ><div class="inline-block item-staff"><span>Staff</span></div></a
+            >
+            <a href="#" class="nav-item support"
+              ><div class="inline-block item-support">
+                <span>Support</span>
+              </div></a
+            >
+          </div>
+
+          <div class="social-media">
+            <a href="#" class="social-item discord">
+              <div class="block item-discord">
+                <span><i class="fab fa-discord"></i></span>
+              </div>
+            </a>
+            <a href="#" class="social-item twitter">
+              <div class="block item-twitter">
+                <span><i class="fab fa-twitter"></i></span>
+              </div>
+            </a>
+            <a href="#" class="social-item instagram">
+              <div class="block item-instagram">
+                <span><i class="fab fa-instagram"></i></span>
+              </div>
+            </a>
+          </div>
         </div>
       </nav>
-      <div class="body">.</div>
     </header>
+    <div class="body">
+      <div class="body-intro">
+        <div class="body-title"><span>Welcome to Otaku Realm</span></div>
+        <div class="body-text">
+          <span>
+            Otaku Realm is a wholesome/yet sarcastic, Anime/Manga and
+            Gaming/Programming Community.<br />We are a community aimed at
+            uniting anime fans. Join us as we carve a place on the internet
+            fellow fans to make new friendships, discuss your thoughts/favorite
+            anime, and get your game on.<br />- Admins
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="body-invite">
+      <div class="invite-container">
+        <div class="invite-title">
+          <span>You have been invited join Otaku Realm</span>
+        </div>
+        <div class="invite-text">
+          <span class="icon"><figure></figure></span>
+          <span class="text">Otaku Realm, invitation link.</span>
+          <span class="join-button"
+            ><a href=""><button>Join</button></a></span
+          >
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="slideshow">
+      <div class="slideshow-container">
+        <div class="slide fade">
+          <img
+            src="https://www.hdwallpaper.nu/wp-content/uploads/2015/06/526884.jpg"
+            style="width: 100%;"
+          />
+        </div>
+        <div class="slide fade">
+          <img
+            src="https://wallpapercave.com/wp/wp3806861.jpg"
+            style="width: 100%;"
+          />
+        </div>
+      </div>
+    </div>
+    <script src="../javascript files/responsive.js"></script>
   </body>
 </html>
