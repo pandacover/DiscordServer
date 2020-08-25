@@ -1,0 +1,25 @@
+.body .staff-intro {
+  background-color: cyan;
+}
+
+.staff-list {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 10px 0 0 0;
+  text-align: center;
+  width: 100%;
+}
+
+.staff-list .list-container {
+  width: 70%;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: peachpuff;
+  padding: 20px 0 20px 0;
+}
+
+.list-container .list-title {
+  font-size: 25px;
+  text-shadow: 4px 4px 5px lightcoral;
+}

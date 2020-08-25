@@ -4,7 +4,7 @@ body {
   color: white;
   font-size: 17px;
   background-color: black !important;
-  font-family: "Neucha", cursive;
+  font-family: "Neucha", cursive !important;
 }
 
 /* header */
@@ -100,7 +100,7 @@ nav {
 
 .slideshow-container {
   padding: 50px 0 0 0;
-  width: 400px;
+  width: 388px;
 }
 
 .slide {
@@ -124,6 +124,9 @@ footer {
   flex-flow: row;
   justify-content: center;
   color: white;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 
 /* animations */
