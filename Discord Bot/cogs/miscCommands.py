@@ -1,4 +1,5 @@
 import discord, json, sqlite3
+from aiohttp import request
 from discord.ext import commands
 
 class mainCog(commands.Cog):
@@ -93,6 +94,39 @@ class mainCog(commands.Cog):
             db.commit()
             cursor.close()
             db.close()   
+
+    @commands.group(invoke_without_command=True)
+    async def fun(self, ctx):
+        embed = discord.Embed(title = "Fun commands", description = "", color = discord.Color(0x00ffff))
+        embed.set_footer(text = 'Created by OR Dev Team.')
+        async with ctx.channel.typing():
+            await ctx.send(embed = embed)
+
+    @fun.command()
+    async def facts_cat(self, ctx):
+        URL = "https://some-random-api.ml/facts/cat"
+        fact_url = ''
+        imageUrl = ''
+
+        async with ctx.channel.typing():
+            async with request("GET", URL, headers = {}) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    fact_url = data["fact"]
+                else:
+                    ctx.send(f'{response.status}!')
+            URL = "https://some-random-api.ml/img/cat"
+            async with request("GET", URL, headers = {}) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    imageUrl = data["link"]
+                else:
+                    ctx.send(f'{response.status}!')
+
+            embed = discord.Embed(title = "Cat Fact", description = f"{fact_url}", color = discord.Color(0x00ffff))
+            embed.set_footer(text = 'Created by OR Dev Team.')
+            embed.set_image(url = imageUrl)
+            await ctx.send(embed=embed)
 
 
 def setup(bot):
