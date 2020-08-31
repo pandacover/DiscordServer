@@ -1,81 +1,112 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Stylesheets-->
+    <link href="../css files/style.css" type="text/css" rel="stylesheet">
+    <link href="../css files/animations.css" type="text/css" rel="stylesheet">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Atma:wght@300&family=Quicksand:wght@500&display=swap" rel="stylesheet"> 
+    <!--Font Awesome Js-->
+    <script src="https://kit.fontawesome.com/36aa9cf777.js" crossorigin="anonymous"></script>
     <title>Otaku Realm Website</title>
-    <link href="../css files/style.css" rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Neucha&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/36aa9cf777.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-
-  <body>
+</head>
+<body>
     <header>
-      <nav>
-        <div class="nav-container">
-          <div class="link-container">
-            <a href="./index.html" class="nav-item home"
-              ><div class="inline-block item-home"><span>Home</span></div></a
-            >
-            <a href="./staff.html" class="nav-item staff"
-              ><div class="inline-block item-staff"><span>Staff</span></div></a
-            >
-            <a href="#" class="nav-item support"
-              ><div class="inline-block item-support">
-                <span>Support</span>
-              </div></a
-            >
-          </div>
-
-          <div class="social-media">
-            <a href="https://discord.gg/3rjF858" class="social-item discord">
-              <div class="block item-discord">
-                <span><i class="fab fa-discord"></i></span>
-              </div>
-            </a>
-            <a href="#" class="social-item twitter">
-              <div class="block item-twitter">
-                <span><i class="fab fa-twitter"></i></span>
-              </div>
-            </a>
-            <a href="#" class="social-item instagram">
-              <div class="block item-instagram">
-                <span><i class="fab fa-instagram"></i></span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </nav>
+        <!--NavBar Starts-->
+        <nav class = "navbar">
+            <!--Page Links-->
+            <div class = "item-container">
+                <a href = "./index.html" class = "link padding">
+                    <div class = "item">
+                        <span>Home</span>
+                    </div>
+                </a>
+                <a href = "" class = "link padding">
+                    <div class = "item">
+                        <span>Community</span>
+                    </div>
+                </a>
+                <a href = "" class = "link padding">
+                    <div class = "item">
+                        <span>Support</span>
+                    </div>
+                </a>
+            </div>
+            <!--Social Media Icons-->
+            <div class = "icon-container">
+                <a href = "https://www.reddit.com/r/OtakuCommuityRealm/" class = "icon padding">
+                    <div class = "social-item">
+                        <span><i class = "fab fa-reddit"></i></span>
+                    </div>
+                </a>
+                <a href = "" class = "icon padding">
+                    <div class = "social-item">
+                        <span><i class = "fab fa-instagram"></i></span>
+                    </div>
+                </a>
+                <a href = "https://discord.gg/3rjF858" class = "icon padding">
+                    <div class = "social-icon">
+                        <span><i class = "fab fa-discord"></i></span>
+                    </div>
+                </a>
+            </div>
+        </nav>
+        <!--NavBar ends-->
     </header>
 
-    <div class="body">
-      <div class="body-intro">
-        <div class="body-title"><span>Welcome to Otaku Realm</span></div>
-        <div class="body-text">
-          <span>
-            Otaku Realm is a wholesome/yet sarcastic, Anime/Manga and
-            Gaming/Programming Community.<br />We are a community aimed at
-            uniting anime fans. Join us as we carve a place on the internet
-            fellow fans to make new friendships, discuss your thoughts/favorite
-            anime, and get your game on.<br />- Admins
-          </span>
+    <!--Body starts-->
+    <div class = "body">
+        <div class = "body-block text-conatiner">
+            <!--tile start-->
+            <div class = "body-title">Otaku Realm<span>About!</span></div>
+            <p>
+                <div class = "line"></div>
+            </p>
+            <div class = "text">
+                <span>
+                    Otaku Realm is a wholesome/yet sarcastic,<br /> Anime/Manga and
+                    Gaming/Programming Community.<br />We are a community aimed at
+                    uniting people with<br /> different mindsets and interest.
+                </span>
+            </div>
+            <!--title ends-->
+
+            <!--Random Paragh break-->
+            <p><br /></p>
+
+            <div class = "body-title">
+                <span>What do we offer?</span>
+            </div>
+            <p>
+                <div class = "line"></div>
+            </p>
+            <!--Break end-->
+
+            <!--text start-->
+            <div class = "text">
+                <span>
+                    <ul>
+                        <li> Self assign roles</li>
+                        <li> Active owner and staff, always there to help</li>
+                        <li> Multiple channels for different needs</li>
+                        <li> 50% SFW, no shit-posting</li>
+                        <li> Custom bot with fun commands</li>
+                    </ul>
+                </span>
+            </div>
+            <!--text end-->
+
+            <div class = "chat-image">
+                <div class = "image-container">
+                    <figure></figure>
+                </div>
+            </div>
+
         </div>
-      </div>
+        <!--body container ends-->
     </div>
-    <scrip src="../javascript files/responsive.js"></script>
-      <div class = "widget-conatiner">
-      <iframe src="https://discordapp.com/widget?id=744590909852876810&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-      </div>
-    <footer>
-      <div class="copyright-block">
-      <p class="copyright">
-        Copyright&nbsp;<i class="fas fa-copyright"></i>&nbsp;2020 Otaku Realm /
-        Luv
-      </p>
-    </footer>
-  </body>
+    <!--Body Ends-->
+</body>
 </html>

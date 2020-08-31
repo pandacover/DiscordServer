@@ -1,0 +1,19 @@
+/*NavBar Animations start*/
+.item {
+	transition: all 0.4s;
+}
+
+.item:hover {
+	background-color: rgb(255, 255, 255, 0.9);
+	color: black;
+}
+
+.icon {
+	transition: all 0.2s;
+}
+
+.icon:hover {
+	font-size: 17px;
+	margin: 0 0 -2px -2px;
+}
+/*NavBar Animation ends*/
