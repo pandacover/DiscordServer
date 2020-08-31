@@ -16,6 +16,11 @@ class mainCog(commands.Cog):
                 await message.add_reaction(emoji = "\U00002705")
                 await message.add_reaction(emoji = "\U0000274E")
 
+        query_channel = 749311952819585124
+        if message.channel.id == query_channel and message.author != self.bot.user:
+            await message.channel.send("<@&747462559485001898>")
+            
+
 
 def setup(bot):
     bot.add_cog(mainCog(bot))
