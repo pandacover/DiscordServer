@@ -1,0 +1,72 @@
+body {
+    color: white;
+    font-size: 20px;
+    background-color: rgb(28, 28, 28);
+    font-family: 'Quicksand', sans-serif;
+}
+
+.navbar {
+    background-color: transparent !important;
+    font-size: 17px;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.body {
+	margin: 50px 0 0 0;
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+}
+
+.body-block {
+	width: 95%;
+}
+
+.body-title {
+	display: flex;
+	flex-flow: column;
+	font-size: 45px;
+	letter-spacing: 4px;
+}
+
+.body-title span {
+	font-size: 15px;
+}
+
+/*line starts*/
+.line {
+	width: 24%;
+	height: 3px;
+	background-color: gray;
+}
+/*line ends*/
+
+/*image container starts*/
+
+.chat-image {
+	width: 100%;
+	margin: -400px 0 0 0;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+}
+
+.image-container {
+	width: 90%;
+	display: flex;
+	flex-flow: row-reverse;
+}
+
+.image-container figure {
+	background-image: url("../img/chat.png");
+	background-size: cover;
+	width: 550px;
+	height: 350px;
+	box-shadow: 10px 10px 5px black;
+}
+
+/*image container ends*/
