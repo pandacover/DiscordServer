@@ -1,0 +1,4 @@
+.help-item:hover {
+    text-decoration: none !important;
+    color: lightcoral !important;
+}
