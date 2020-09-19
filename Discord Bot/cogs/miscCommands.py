@@ -1,6 +1,7 @@
-import discord, json, sqlite3
+import discord, json, asyncio
 from aiohttp import request
 from discord.ext import commands
+from discord.ext.commands import Greedy
 
 class mainCog(commands.Cog):
     def __init__(self, bot):
@@ -9,11 +10,13 @@ class mainCog(commands.Cog):
     @commands.command()
     async def website(self, ctx):
         embed = discord.Embed(title = "Otaku Realm Beta Website!", 
-        description = "{}".format("https://pandacover.github.io/DiscordServer/Discord%20WebPage/html%20files/otaku.html"), 
+        description = "{}".format("Website is created by Luv and is under construction"), url = "https://pandacover.github.io/DiscordServer/Discord%20WebPage/" , 
         color = discord.Color(0x000000)
         )
         embed.set_footer(text = 'Created by OR Dev team.')
         await ctx.send(embed=embed)
+        await asyncio.sleep(3)
+        await ctx.message.delete()
 
     @commands.command()
     async def suggest(self, ctx, *, suggestion):
@@ -24,9 +27,12 @@ class mainCog(commands.Cog):
         data = json.load(file)
         channel_id = data["suggestion"]
         await self.bot.get_channel(channel_id).send(embed=embed)
+        await ctx.message.add_reaction(emoji = "\U0001F44D")
+        await asyncio.sleep(5)
+        await ctx.message.delete()
 
     @commands.command()
-    @commands.has_any_role('Admin', 'Moderator')
+    @commands.has_any_role('Owner', 'Moderators')
     async def set_suggest(self, ctx, *, channel_id):
         file = open('./json/channels.json', 'r')
         data = json.load(file)
@@ -37,9 +43,10 @@ class mainCog(commands.Cog):
             json.dump(data, tf)
         await ctx.send('Channel set successfully!')
 
-    @commands.command()
+    @commands.group(invoke_without_command=True)
     async def help(self, ctx):
-        embed1 = discord.Embed(title = "Miscellaneous Commands", description = "`help`: Need to see commands?\n`suggest`: Have suggestions for server?\n`website`: Check out our website!", color = discord.Color(0x00ffff))
+      async with ctx.channel.typing():
+        embed1 = discord.Embed(title = "Miscellaneous Commands", description = "`help`: Need to see commands?\n`suggest`: Have suggestions for server?\n`website`: Check out our website!\n`greetings <@user>`: Welcome a new member!\n`fun` : Fun commands! Type `/help fun`.", color = discord.Color(0x00ffff))
         embed1.set_author(name = "Luv")
         embed1.set_footer(text = "Developed by OR Dev Team.")
         embed2 = discord.Embed(title = "", description = "`kick`: Someone's bugging the server? Yeet them.\n`ping`: Checkout the latency of the trashy bot!\n`purge`: Tired of deleting messages one by one? Well you know what to do!\n`set_log`: Set the log channel!\n`set_suggest`: Set the suggestion channel!", color = discord.Color(0xff0000))
@@ -47,63 +54,20 @@ class mainCog(commands.Cog):
         embed2.set_footer(text = "Developed by OR Dev Team.")
         await ctx.send(embed=embed1)
         await ctx.send(embed=embed2)
+      await asyncio.sleep(3)
+      await ctx.message.delete()
 
-    
-    @commands.group(invoke_without_command=True)
-    async def welcome(self, ctx):
-        await ctx.send('Available Setup Commands: \nwelcome channel <#channel>\nwelcome text <message>')
-    
-    @welcome.command()
-    async def channel(self, ctx, channel:discord.TextChannel):
-        if ctx.message.author.guild_permissions.manage_messages:
-            db = sqlite3.connect('main.sqlite')
-            cursor = db.cursor()
-            cursor.execute(f'SELECT channel_id FROM main WHERE row = {1}')
-            result = cursor.fetchone()
-            if result is None:
-                sql = ("INSERT INTO main(guild_id, channel_id, row) VALUES(?,?,?)")
-                val = (ctx.guild.id, channel.id, 1)
-                await ctx.send(f"Channel has been set to {channel.mention}")
-            
-            elif result is not None:
-                sql = ("UPDATE main  SET channel_id = ? WHERE guild_id = ?")
-                val = (channel.id, ctx.guild.id)
-                await ctx.send(f"Channel has been updated to {channel.mention}")
-            cursor.execute(sql, val)
-            db.commit()
-            cursor.close()
-            db.close()
-        
-    @welcome.command()
-    async def text(self, ctx, *, text):
-        if ctx.message.author.guild_permissions.manage_messages:
-            db = sqlite3.connect('main.sqlite')
-            cursor = db.cursor()
-            cursor.execute(f'SELECT msg FROM main WHERE guild_id = {ctx.guild.id}')
-            result = cursor.fetchone()
-            if result is None:
-                sql = ("INSERT INTO main(guild_id, msg) VALUES(?,?)")
-                val = (ctx.guild.id, text)
-                await ctx.send(f"Message has been set to `{text}`")
-            
-            elif result is not None:
-                sql = ("UPDATE main  SET msg = ? WHERE guild_id = ?")
-                val = (text, ctx.guild.id)
-                await ctx.send(f"Message has been updated to `{text}`")
-            cursor.execute(sql, val)
-            db.commit()
-            cursor.close()
-            db.close()   
-
-    @commands.group(invoke_without_command=True)
+    @help.command()
     async def fun(self, ctx):
-        embed = discord.Embed(title = "Fun commands", description = "", color = discord.Color(0x00ffff))
-        embed.set_footer(text = 'Created by OR Dev Team.')
-        async with ctx.channel.typing():
-            await ctx.send(embed = embed)
+      embed=discord.Embed(color=discord.Color(0x00C78C),
+      description="`hug` : Hug someone, because why not!\n`pat` : Pat the head. Yeah, just like that!\n`kiss(under construction)` : Wanna give a kiss? Sure, it's free!\n`tickle(under construction)` : Make them laugh until they cry!\n`slap(under construction)` : Serious damage. Speech 0, Destruction 100!\n`cat` : Daily does of cats!\n`dog` : Daily does of dogs!")
+      embed.set_author(name="All the fun commands are listed below:")
+      await ctx.send(embed=embed)
+      await asyncio.sleep(3)
+      await ctx.message.delete()
 
-    @fun.command()
-    async def facts_cat(self, ctx):
+    @commands.command(aliases=['neko', 'kitty'])
+    async def cat(self, ctx):
         URL = "https://some-random-api.ml/facts/cat"
         fact_url = ''
         imageUrl = ''
@@ -123,12 +87,54 @@ class mainCog(commands.Cog):
                 else:
                     ctx.send(f'{response.status}!')
 
-            embed = discord.Embed(title = "Cat Fact", description = f"{fact_url}", color = discord.Color(0x00ffff))
-            embed.set_footer(text = 'Created by OR Dev Team.')
-            embed.set_image(url = imageUrl)
-            await ctx.send(embed=embed)
+            embed1 = discord.Embed(title = f"{ctx.author.name} did you know?", description = f"{fact_url}", color = discord.Color(0x00ffff))
+
+            embed2 = discord.Embed(color = discord.Color(0x00ffff))
+            embed2.set_footer(text = 'Created by OR Dev Team.')
+            embed2.set_image(url = imageUrl)
+            await ctx.send(embed=embed1)
+            await ctx.send(embed=embed2)
+
+    @commands.command(aliases=['pup', 'puppy'])
+    async def dog(self, ctx):
+        fact = ''
+        img = ''
+        async with ctx.channel.typing():
+          URL="https://some-random-api.ml/img/dog"
+          async with request("GET", URL, headers={}) as response:
+            if response.status == 200:
+              data = await response.json()
+              img = data['link']
+            else:
+              ctx.send(response.status)
+          URL="https://some-random-api.ml/facts/dog"
+          async with request("GET", URL, headers={}) as response:
+            if response.status == 200:
+              data = await response.json()
+              fact = data['fact']
+            else:
+              ctx.send(response.status)
+
+            embed1 = discord.Embed(title = f"{ctx.author.name} did you know?", description = f"{fact}", color = discord.Color(0x00ffff))
+
+            embed2 = discord.Embed(color = discord.Color(0x00ffff))
+            embed2.set_footer(text = 'Created by OR Dev Team.')
+            embed2.set_image(url = img)
+            await ctx.send(embed=embed1)
+            await ctx.send(embed=embed2)
 
 
+
+    @commands.command()
+    async def greetings(self, ctx, targets: Greedy[discord.Member]):
+      embed = discord.Embed(title="Welcome New Member", 
+      description="**We hope you enjoy your stay here!**\nSince you're new here I recommend you checking out the following channels listed below:\n- <#744601957347360768>\n- <#744612149300822066>\n*Thank you for joining the server!*", color = discord.Color(0x00ffff))
+      embed.set_author(name="Staff Team")
+      embed.set_footer(text="Developed by OR Dev Team.")
+      for target in targets:
+        embed.set_thumbnail(url=target.avatar_url)
+      await ctx.send(embed=embed)
+      
 def setup(bot):
     bot.add_cog(mainCog(bot))
 

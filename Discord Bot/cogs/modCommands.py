@@ -1,7 +1,7 @@
 import discord, json, asyncio
 from typing import Optional
 from discord.ext import commands
-from discord.ext.commands import has_permissions, bot_has_permissions, Greedy
+from discord.ext.commands import Greedy
 
 class mainCog(commands.Cog):
     def __init__(self, bot):
@@ -21,15 +21,17 @@ class mainCog(commands.Cog):
         embed = discord.Embed(title = "Bot Latency", description = f'{round(self.bot.latency * 1000)}ms', color = discord.Color(0xff0000))
         embed.set_footer(text = 'Created by OR Dev Team.')
         await ctx.send(embed=embed)
+        await asyncio.sleep(3)
+        await ctx.message.delete()
 
     @commands.command()
-    @commands.has_any_role('Admin', 'Moderator')
+    @commands.has_any_role('Owner', 'Moderators')
     async def purge(self, ctx, limit=1):
         await ctx.message.channel.purge(limit=int(limit) + 1)
         await self.send_log(ctx.author, 'Purge command was used by {} to purge {} messages'.format(ctx.author, limit))
 
     @commands.command()
-    @commands.has_any_role('Admin', 'Moderator')
+    @commands.has_any_role('Owner', 'Moderators')
     async def kick(self, ctx, targets: Greedy[discord.Member], *, reason: Optional[str] = "No reason provided!"):
         if not len(targets):
             await ctx.send('Please enter a valid username!')
@@ -40,9 +42,11 @@ class mainCog(commands.Cog):
                         await self.send_log(ctx.author, 'Kick command was used by{}\nTo kick{}'.format(ctx.author, target))
                     else:
                         await ctx.send('You cannot kick yourself!')
+        await asyncio.sleep(3)
+        await ctx.message.delete()
 
     @commands.command()
-    @commands.has_any_role('Admin', 'Moderator')
+    @commands.has_any_role('Owner', 'Moderators')
     async def set_logs(self, ctx, *, channel_id):
         file = open('./json/channels.json', 'r')
         data = json.load(file)
@@ -51,7 +55,9 @@ class mainCog(commands.Cog):
         data["logs"] = int(channels)
         with open('./json/channels.json', 'w') as tf:
             json.dump(data, tf)
-        await ctx.send('Channel set successfully!')    
+        await ctx.send('Channel set successfully!')
+        await asyncio.sleep(3)
+        await ctx.message.delete()    
 
 def setup(bot):
     bot.add_cog(mainCog(bot))

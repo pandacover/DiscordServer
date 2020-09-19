@@ -1,55 +1,79 @@
-import discord, json, random, sqlite3
+import discord, dotenv, os
+from dotenv import load_dotenv
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
-bot = commands.Bot(command_prefix = '/')
+bot = commands.Bot(command_prefix='/')
 bot.remove_command('help')
 
-file = open('./json/token.json', 'r')
-data  = json.load(file)
-token = data["token"]
+load_dotenv()
+TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
 @bot.event
 async def on_ready():
-    print('Logged in!')
+  print('Logged in!')
+
 
 @bot.event
 async def on_error(err, *args, **kwargs):
-    if err == "on_command_error":
-        await args[0].send('Something went wrong!')
+  if err == "on_command_error":
+    await args[0].send('Something went wrong!')
 
     raise
 
 @bot.event
 async def on_command_error(ctx, exc):
-    if isinstance(exc, CommandNotFound):
-        flag = 0
-        list1 = ['website','echo', 'purge','ping', 'set_logs', 'set_suggest', 'kick', 'suggest']
-        list2 = []
-        music = ['/play', '/join', '/disconnect', '/dc']
-        for word in ctx.message.content:
-            list2.append(word)
-        if ctx.message.content not in music:
-            for words in list1:
-                if list2[1] == words[:1]:
-                    await ctx.send('Did you mean `/' + words + '`?')
-                    flag = 1
-                    break
-        else:
-            flag = 1
-          
-        if flag == 0:
-            await ctx.send('Command not found!')
+  if isinstance(exc, CommandNotFound):
+    await ctx.send('Command not found!')
 
-    elif hasattr(exc, "original"):
-        raise exc.original
+  elif hasattr(exc, "original"):
+    raise exc.original
+
 
 @bot.command()
 async def echo(ctx, *, content):
-    await ctx.send(content)
+  await ctx.send(content)
 
-bot.load_extension("cogs.modCommands") 
-bot.load_extension("cogs.miscCommands")   
+@bot.event
+async def on_raw_reaction_add(payload):
+  message_id = payload.message_id
+  if message_id == 756482714839810108:
+    guild_id = payload.guild_id
+    guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)
+    if payload.emoji.name == 'tsuakasa':
+      role = discord.utils.get(guild.roles, name="He/Him")
+    elif payload.emoji.name == 'nene':
+      role = discord.utils.get(guild.roles, name="She/Her")
+    elif payload.emoji.name == 'shibaheart':
+      role = discord.utils.get(guild.roles, name="They/Them")
+
+  if role is not None:
+    member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
+    if member is not None:
+      await member.add_roles(role)
+
+
+@bot.event
+async def on_raw_reaction_remove(payload):
+  message_id = payload.message_id
+  if message_id == 756482714839810108:
+    guild_id = payload.guild_id
+    guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)
+    if payload.emoji.name == 'tsuakasa':
+      role = discord.utils.get(guild.roles, name="He/Him")
+    elif payload.emoji.name == 'nene':
+      role = discord.utils.get(guild.roles, name="She/Her")
+    elif payload.emoji.name == 'shibaheart':
+      role = discord.utils.get(guild.roles, name="They/Them")
+
+  if role is not None:
+    member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
+    if member is not None:
+      await member.remove_roles(role)
+
+bot.load_extension("cogs.modCommands")
+bot.load_extension("cogs.miscCommands")
 bot.load_extension("cogs.reaction")
 bot.load_extension("cogs.updates")
-bot.run(token)
+bot.load_extension("cogs.fun")
+bot.run(TOKEN)

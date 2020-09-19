@@ -1,6 +1,5 @@
-import discord, asyncio, random, json
+import json
 from discord.ext import commands
-from discord.ext.commands import has_permissions, bot_has_permissions, Greedy
 
 class mainCog(commands.Cog):
     def __init__(self, bot):
@@ -20,7 +19,6 @@ class mainCog(commands.Cog):
         if message.channel.id == query_channel and message.author != self.bot.user:
             await message.channel.send("<@&747462559485001898>")
             
-
 
 def setup(bot):
     bot.add_cog(mainCog(bot))
