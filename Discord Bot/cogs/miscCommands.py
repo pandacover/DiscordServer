@@ -14,6 +14,7 @@ class mainCog(commands.Cog):
         color = discord.Color(0x000000)
         )
         embed.set_footer(text = 'Created by OR Dev team.')
+        await asyncio.sleep(0.5)
         await ctx.send(embed=embed)
         await asyncio.sleep(3)
         await ctx.message.delete()
@@ -52,6 +53,7 @@ class mainCog(commands.Cog):
         embed2 = discord.Embed(title = "", description = "`kick`: Someone's bugging the server? Yeet them.\n`ping`: Checkout the latency of the trashy bot!\n`purge`: Tired of deleting messages one by one? Well you know what to do!\n`set_log`: Set the log channel!\n`set_suggest`: Set the suggestion channel!", color = discord.Color(0xff0000))
         embed2.set_author(name = "Luv")
         embed2.set_footer(text = "Developed by OR Dev Team.")
+        await asyncio.sleep(0.5)
         await ctx.send(embed=embed1)
         await ctx.send(embed=embed2)
       await asyncio.sleep(3)
@@ -65,65 +67,6 @@ class mainCog(commands.Cog):
       await ctx.send(embed=embed)
       await asyncio.sleep(3)
       await ctx.message.delete()
-
-    @commands.command(aliases=['neko', 'kitty'])
-    async def cat(self, ctx):
-        URL = "https://some-random-api.ml/facts/cat"
-        fact_url = ''
-        imageUrl = ''
-
-        async with ctx.channel.typing():
-            async with request("GET", URL, headers = {}) as response:
-                if response.status == 200:
-                    data = await response.json()
-                    fact_url = data["fact"]
-                else:
-                    ctx.send(f'{response.status}!')
-            URL = "https://some-random-api.ml/img/cat"
-            async with request("GET", URL, headers = {}) as response:
-                if response.status == 200:
-                    data = await response.json()
-                    imageUrl = data["link"]
-                else:
-                    ctx.send(f'{response.status}!')
-
-            embed1 = discord.Embed(title = f"{ctx.author.name} did you know?", description = f"{fact_url}", color = discord.Color(0x00ffff))
-
-            embed2 = discord.Embed(color = discord.Color(0x00ffff))
-            embed2.set_footer(text = 'Created by OR Dev Team.')
-            embed2.set_image(url = imageUrl)
-            await ctx.send(embed=embed1)
-            await ctx.send(embed=embed2)
-
-    @commands.command(aliases=['pup', 'puppy'])
-    async def dog(self, ctx):
-        fact = ''
-        img = ''
-        async with ctx.channel.typing():
-          URL="https://some-random-api.ml/img/dog"
-          async with request("GET", URL, headers={}) as response:
-            if response.status == 200:
-              data = await response.json()
-              img = data['link']
-            else:
-              ctx.send(response.status)
-          URL="https://some-random-api.ml/facts/dog"
-          async with request("GET", URL, headers={}) as response:
-            if response.status == 200:
-              data = await response.json()
-              fact = data['fact']
-            else:
-              ctx.send(response.status)
-
-            embed1 = discord.Embed(title = f"{ctx.author.name} did you know?", description = f"{fact}", color = discord.Color(0x00ffff))
-
-            embed2 = discord.Embed(color = discord.Color(0x00ffff))
-            embed2.set_footer(text = 'Created by OR Dev Team.')
-            embed2.set_image(url = img)
-            await ctx.send(embed=embed1)
-            await ctx.send(embed=embed2)
-
-
 
     @commands.command()
     async def greetings(self, ctx, targets: Greedy[discord.Member]):
