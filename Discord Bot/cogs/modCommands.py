@@ -25,13 +25,13 @@ class mainCog(commands.Cog):
         await ctx.message.delete()
 
     @commands.command()
-    @commands.has_any_role('Owner', 'Moderators')
+    @commands.has_any_role('Moderators')
     async def purge(self, ctx, limit=1):
         await ctx.message.channel.purge(limit=int(limit) + 1)
         await self.send_log(ctx.author, 'Purge command was used by {} to purge {} messages'.format(ctx.author, limit))
 
     @commands.command()
-    @commands.has_any_role('Owner', 'Moderators')
+    @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, targets: Greedy[discord.Member], *, reason: Optional[str] = "No reason provided!"):
         if not len(targets):
             await ctx.send('Please enter a valid username!')
@@ -39,14 +39,14 @@ class mainCog(commands.Cog):
             for target in targets:
                     if target != ctx.author:
                         await target.kick(reason=reason)
-                        await self.send_log(ctx.author, 'Kick command was used by{}\nTo kick{}'.format(ctx.author, target))
+                        await self.send_log('Kick command was used by{}\nTo kick{}.\nReason: {}'.format(ctx.author, target, reason))
                     else:
                         await ctx.send('You cannot kick yourself!')
         await asyncio.sleep(3)
         await ctx.message.delete()
 
     @commands.command()
-    @commands.has_any_role('Owner', 'Moderators')
+    @commands.has_any_role('Moderators')
     async def set_logs(self, ctx, *, channel_id):
         file = open('./json/channels.json', 'r')
         data = json.load(file)

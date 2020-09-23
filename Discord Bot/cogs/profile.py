@@ -1,6 +1,6 @@
-import discord, asyncio
+import discord, asyncio, datetime, time
 from discord.ext import commands
-
+start_time=time.time()
 class mainCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -68,6 +68,18 @@ class mainCog(commands.Cog):
             await ctx.send(embed=embed)
         await asyncio.sleep(3)
         await ctx.message.delete()
+    @commands.command(aliases=["status", "stats"])
+    async def stat(self, ctx):
+        async with ctx.channel.typing():
+            guilds=len(self.bot.guilds)
+            user=ctx.guild.get_member(756866503357497394)
+            current_time = time.time()
+            difference = int(round(current_time - start_time))
+            text = str(datetime.timedelta(seconds=difference))
+            embed=discord.Embed(color=discord.Color.green())
+            embed.add_field(name="Otaku Bot Status:", value=f'```java\n   [name] : "{user.name}"\n [uptime] : "{text}"\n [status] : "{user.status}"\n [cached] : "{len(self.bot.cached_messages)}"\n[latency] : "{round(self.bot.latency * 1000)}ms"\n  [guild] : "{ctx.author.guild}  |  {guilds}"```')
+            await asyncio.sleep(1)
+            await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(mainCog(bot))

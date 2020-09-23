@@ -1,9 +1,9 @@
-import discord, json, asyncio
+import discord, json, asyncio, datetime
 from aiohttp import request
 from discord.ext import commands
 from discord.ext.commands import Greedy
 
-class mainCog(commands.Cog):
+class mainCog(commands.Cog, name="help"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -33,7 +33,7 @@ class mainCog(commands.Cog):
         await ctx.message.delete()
 
     @commands.command()
-    @commands.has_any_role('Owner', 'Moderators')
+    @commands.has_any_role('Moderators')
     async def set_suggest(self, ctx, *, channel_id):
         file = open('./json/channels.json', 'r')
         data = json.load(file)
@@ -77,7 +77,24 @@ class mainCog(commands.Cog):
       for target in targets:
         embed.set_thumbnail(url=target.avatar_url)
       await ctx.send(embed=embed)
-      
+    
+    @commands.Cog.listener()
+    async def on_message(self, message):
+      if not message.author.bot:
+        if isinstance(message.channel, discord.DMChannel):
+          if len(message.content) < 10:
+            await message.channel.send("Your query/report should be at least of 10 characters.")
+          else:
+            embed1 = discord.Embed(color=discord.Color(0xa84300), description="We have received your message. Please wait until our staff team reach you!")
+            embed1.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+            embed2 = discord.Embed(title="Modmail", color=discord.Color(0xa84300), description=message.content, timestamp=datetime.datetime.utcnow)
+            embed2.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+            await message.add_reaction(emoji = "\U00002705")
+            await asyncio.sleep(1)
+            await message.channel.send(embed=embed1)
+            await self.bot.get_guild(756865168054681630).get_channel(756865168499015684).send(embed=embed2)
+
+
 def setup(bot):
     bot.add_cog(mainCog(bot))
 
