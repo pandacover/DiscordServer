@@ -62,7 +62,7 @@ class mainCog(commands.Cog, name="help"):
     @help.command()
     async def fun(self, ctx):
       embed=discord.Embed(color=discord.Color(0x00C78C),
-      description="`hug` : Hug someone, because why not!\n`pat` : Pat the head. Yeah, just like that!\n`kiss(under construction)` : Wanna give a kiss? Sure, it's free!\n`tickle(under construction)` : Make them laugh until they cry!\n`slap(under construction)` : Serious damage. Speech 0, Destruction 100!\n`cat` : Daily does of cats!\n`dog` : Daily does of dogs!")
+      description="`hug` : Hug someone, because why not!\n`pat` : Pat the head. Yeah, just like that!\n`kiss(under construction)` : Wanna give a kiss? Sure, it's free!\n`tickle` : Make them laugh until they cry!\n`slap` : Serious damage. Speech 0, Destruction 100!\n`cat` : Daily does of cats!\n`dog` : Daily does of dogs!")
       embed.set_author(name="All the fun commands are listed below:")
       await ctx.send(embed=embed)
       await asyncio.sleep(3)
