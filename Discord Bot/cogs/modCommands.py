@@ -9,17 +9,6 @@ class mainCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def send_log(self, ctx, message):
-        file = open('./json/channels.json', 'r')
-        data = json.load(file)
-        channel = data["logs"]
-        embed = discord.Embed(title='Admin Command Log',
-                              description='{}'.format(message),
-                              color=discord.Color(0xff0000))
-        embed.set_footer(text='Developed by OR Dev Team.')
-        await self.bot.get_channel(channel).send(embed=embed)
-
-    @commands.command()
     async def ping(self, ctx):
         embed = discord.Embed(
             title="Bot Latency",
@@ -31,13 +20,25 @@ class mainCog(commands.Cog):
         await ctx.message.delete()
 
     @commands.command()
-    @commands.has_any_role('Moderators')
+    @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, limit=1):
-        await ctx.message.channel.purge(limit=int(limit) + 1)
-        await self.send_log(
-            ctx.author,
-            'Purge command was used by {} to purge {} messages'.format(
-                ctx.author, limit))
+        file = open("./json/channels.json", "r")
+        data = json.load(file)
+        if not str(ctx.guild.id) in data:
+            await ctx.send(
+                "Please set a log channel using `/set_logs #channel_name`")
+
+        elif data[str(ctx.guild.id)]['logs'] == 0:
+            await ctx.send(
+                "Please set a log channel using `/set_logs #channel_name`")
+
+        else:
+            await ctx.message.channel.purge(limit=int(limit) + 1)
+            await self.send_log(
+                ctx.message,
+                f"Purge command was used by {ctx.author} to purge {limit} messages"
+            )
+        file.close()
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
@@ -46,38 +47,62 @@ class mainCog(commands.Cog):
                    targets: Greedy[discord.Member],
                    *,
                    reason: Optional[str] = "No reason provided!"):
-        if not len(targets):
-            await ctx.send('Please enter a valid username!')
+        file = open("./json/channels.json", "r")
+        data = json.load(file)
+        if str(ctx.guild.id) in data:
+            if not len(targets):
+                await ctx.send('Please enter a valid username!')
+            else:
+                for target in targets:
+                    if target != ctx.author:
+                        await target.kick(reason=reason)
+                        await self.send_log(
+                            ctx.message,
+                            f'Kick command was used by{ctx.author}\nTo kick{target}.\nReason: {reason}'
+                        )
+                    else:
+                        await ctx.send('You cannot kick yourself!')
+            await asyncio.sleep(3)
+            await ctx.message.delete()
+
         else:
-            for target in targets:
-                if target != ctx.author:
-                    await target.kick(reason=reason)
-                    await self.send_log(
-                        'Kick command was used by{}\nTo kick{}.\nReason: {}'.
-                        format(ctx.author, target, reason))
-                else:
-                    await ctx.send('You cannot kick yourself!')
-        await asyncio.sleep(3)
-        await ctx.message.delete()
+            await ctx.send(
+                "Please set a log channel using `/set_logs #channel_name`")
 
     @commands.command()
-    @commands.has_any_role('Moderators')
+    @commands.has_permissions(manage_channels=True)
     async def set_logs(self, ctx, *, channel_id):
         file = open('./json/channels.json', 'r')
         data = json.load(file)
+
+        if not str(ctx.guild.id) in data:
+            data[str(ctx.guild.id)] = {}
+            data[str(ctx.guild.id)]['logs'] = 0
+            data[str(ctx.guild.id)]['suggest'] = 0
+
         channels = str(channel_id)
         channels = channels.replace('<', '').replace('#', '').replace('>', '')
-        data["logs"] = int(channels)
+        data[str(ctx.guild.id)]["logs"] = int(channels)
         with open('./json/channels.json', 'w') as tf:
             json.dump(data, tf)
         await ctx.send('Channel set successfully!')
         await asyncio.sleep(3)
         await ctx.message.delete()
 
+    @commands.Cog.listener()
+    async def send_log(self, message, log):
+        embed = discord.Embed(color=discord.Color.red(), description=log)
+        embed.set_author(name=self.bot.user, icon_url=self.bot.user.avatar_url)
+        embed.set_footer(text="Created by OR Dev")
+        with open("./json/channels.json", "r") as f:
+            data = json.load(f)
+        await message.guild.get_channel(data[str(message.guild.id)]["logs"]
+                                        ).send(embed=embed)
+
     @commands.command()
     @commands.is_owner()
     async def rules(self, ctx):
-        guild = self.bot.get_guild(756865168054681630)
+        guild = self.bot.get_guild(744590909852876810)
         serverRules = discord.Embed(
             title="Otaku Realm Server Rules",
             color=discord.Color.red(),
@@ -119,11 +144,30 @@ class mainCog(commands.Cog):
         serverRules.set_thumbnail(url=guild.icon_url)
         serverRules.set_footer(
             text=
-            f"Note: Server rules are made by {guild.owner.name} and are subjected to changes anytime."
+            f"Note: Server rules and gif are made by {guild.owner.name}, please do not steal. Rules are subjected to changes anytime."
         )
         serverRules.set_image(
             url="https://media.giphy.com/media/qd5HiIDqq2pNFeqjpV/giphy.gif")
         await ctx.send(embed=serverRules)
+        await asyncio.sleep(1)
+        await ctx.message.delete()
+
+    @commands.command()
+    @commands.has_permissions(manage_channels=True)
+    async def set_suggest(self, ctx, *, channel_id):
+        file = open('./json/channels.json', 'r')
+        data = json.load(file)
+        if not str(ctx.guild.id) in data:
+            data[str(ctx.guild.id)] = {}
+            data[str(ctx.guild.id)]['logs'] = 0
+            data[str(ctx.guild.id)]['suggestion'] = 0
+
+        channels = str(channel_id)
+        channels = channels.replace('<', '').replace('#', '').replace('>', '')
+        data[str(ctx.guild.id)]["suggestion"] = int(channels)
+        with open('./json/channels.json', 'w') as tf:
+            json.dump(data, tf)
+        await ctx.send('Channel set successfully!')
 
 
 def setup(bot):

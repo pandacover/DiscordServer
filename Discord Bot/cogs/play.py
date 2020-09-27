@@ -1,4 +1,4 @@
-import asyncio, json, discord, random
+import discord, random
 from aiohttp import ClientSession
 from discord.ext import commands
 
@@ -27,8 +27,7 @@ class mainCog(commands.Cog):
 
     @commands.command()
     async def rps(self, ctx, *, input=None):
-        rps = ["rock", "paper", "scissors"]
-        output = random.choice(rps)
+        output = random.choice(["rock", "paper", "scissors"])
         async with ctx.channel.typing():
             if input is not None:
                 input = input.lower()

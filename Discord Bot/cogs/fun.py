@@ -1,4 +1,4 @@
-import discord, asyncio, requests, json, random
+import discord, asyncio, json, random
 from aiohttp import request, ClientSession
 from discord.ext import commands
 
@@ -185,16 +185,6 @@ class mainCog(commands.Cog):
         await asyncio.sleep(3)
         await ctx.message.delete()
 
-    @commands.command()
-    async def dadjoke(self, ctx):
-        url = "https://icanhazdadjoke.com/"
-        headers = {"Accept": "application/json"}
-        async with ctx.channel.typing():
-            async with ClientSession() as session:
-                async with session.get(url, headers=headers) as response:
-                    data = await response.json()
-                    await ctx.send(data["joke"])
-
     @commands.command(
         name="Meme",
         aliases=["meme", "memes"],
@@ -211,23 +201,24 @@ class mainCog(commands.Cog):
                     await ctx.send(embed=meme)
 
     @commands.command()
-    async def search(self, ctx, *, query):
-        url = f"https://cse.google.com/cse?cx=ccf6cea7f214e3d0c&q={query}"
+    async def dadjoke(self, ctx):
+        url = "https://icanhazdadjoke.com/"
+        headers = {"Accept": "application/json"}
         async with ctx.channel.typing():
             async with ClientSession() as session:
-                async with session.get(url, headers={}) as response:
+                async with session.get(url, headers=headers) as response:
                     data = await response.json()
-                    index = 0
-                    s = ""
-                    while index < len(data["items"]):
-                        s += f'{data["items"][index]["link"]}\n'
-                        index += 1
-
-                    await ctx.send(s)
+                    dadJoke = discord.Embed(color=discord.Color.green(),
+                                            description=data["joke"])
+                    dadJoke.set_author(name=self.bot.user.name,
+                                       icon_url=self.bot.user.avatar_url)
+                    dadJoke.set_footer(
+                        text=
+                        "Powered by OR DEV and https://icanhazdadjoke.com/.")
+                    await ctx.send(embed=dadJoke)
+                    await asyncio.sleep(3)
+                    await ctx.send(f"{ctx.author.mention} was it funny?")
 
 
 def setup(bot):
     bot.add_cog(mainCog(bot))
-
-
-#AIzaSyCyi06POfk610UexEGus8gD6dn-ryx5xUw
