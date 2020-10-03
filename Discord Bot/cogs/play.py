@@ -1,4 +1,4 @@
-import discord, random
+import discord, random, asyncio
 from aiohttp import ClientSession
 from discord.ext import commands
 
@@ -8,6 +8,7 @@ class mainCog(commands.Cog):
         self.bot = bot
 
     @commands.command(aliases=['8ball'])
+    @commands.cooldown(1, 15, commands.BucketType.member)
     async def eightball(self, ctx, *, question):
         url = f"https://8ball.delegator.com/magic/JSON/{question}"
         async with ctx.channel.typing():
@@ -26,6 +27,7 @@ class mainCog(commands.Cog):
                     await ctx.send(embed=ballResponse)
 
     @commands.command()
+    @commands.cooldown(1, 15, commands.BucketType.member)
     async def rps(self, ctx, *, input=None):
         output = random.choice(["rock", "paper", "scissors"])
         async with ctx.channel.typing():
@@ -60,37 +62,42 @@ class mainCog(commands.Cog):
                         f"Wrong input. What the hell is **{input}** anyway!?")
             elif input is None:
                 await ctx.send("What do you choose?")
-                input = await self.bot.wait_for(
-                    'message',
-                    check=lambda message: message.author == ctx.author)
-                input = str(input.content).lower()
-                if input == "rock":
-                    if output == "rock":
-                        await ctx.send(f"**{output}**, draw.")
-                    elif output == "paper":
-                        await ctx.send(f"**{output}**, you lose.")
-                    elif output == "scissors":
-                        await ctx.send(f"**{output}**, you win.")
+                try:
+                    input = await self.bot.wait_for(
+                        'message',
+                        timeout=60.0,
+                        check=lambda message: message.author == ctx.author)
+                    input = str(input.content).lower()
+                    if input == "rock":
+                        if output == "rock":
+                            await ctx.send(f"**{output}**, draw.")
+                        elif output == "paper":
+                            await ctx.send(f"**{output}**, you lose.")
+                        elif output == "scissors":
+                            await ctx.send(f"**{output}**, you win.")
 
-                elif input == "paper":
-                    if output == "rock":
-                        await ctx.send(f"**{output}**, you win.")
-                    elif output == "paper":
-                        await ctx.send(f"**{output}**, draw.")
-                    elif output == "scissors":
-                        await ctx.send(f"**{output}**, you lose.")
+                    elif input == "paper":
+                        if output == "rock":
+                            await ctx.send(f"**{output}**, you win.")
+                        elif output == "paper":
+                            await ctx.send(f"**{output}**, draw.")
+                        elif output == "scissors":
+                            await ctx.send(f"**{output}**, you lose.")
 
-                elif input == "scissors":
-                    if output == "rock":
-                        await ctx.send(f"**{output}**, you lose.")
-                    elif output == "paper":
-                        await ctx.send(f"**{output}**, you win.")
-                    elif output == "scissors":
-                        await ctx.send(f"**{output}**, draw.")
+                    elif input == "scissors":
+                        if output == "rock":
+                            await ctx.send(f"**{output}**, you lose.")
+                        elif output == "paper":
+                            await ctx.send(f"**{output}**, you win.")
+                        elif output == "scissors":
+                            await ctx.send(f"**{output}**, draw.")
 
-                else:
-                    await ctx.send(
-                        f"Wrong input. What the hell is **{input}** anyway!?")
+                    else:
+                        await ctx.send(
+                            f"Wrong input. What the hell is **{input}** anyway!?")
+                except asyncio.TimeoutError:    
+                    await ctx.channel.purge(limit=1)
+                    await ctx.send("> What a dip shit!")
 
 
 def setup(bot):

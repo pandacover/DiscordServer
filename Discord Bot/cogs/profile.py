@@ -1,6 +1,8 @@
-import discord, asyncio, datetime, time
+import discord, asyncio, datetime, time, os
 from discord.ext import commands
-
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from os import path
+import sys
 start_time = time.time()
 
 
@@ -15,7 +17,7 @@ class mainCog(commands.Cog):
             "August", "September", "October", "November", "December"
         ]
         async with ctx.channel.typing():
-            embed = discord.Embed(color=discord.Color(0xf1c40f))
+            embed = discord.Embed(color=discord.Color.orange())
             if member is not None and not member.bot:
                 embed.set_author(name=member.name, icon_url=member.avatar_url)
                 embed.add_field(name="User ID", value=member.id, inline=False)
@@ -126,7 +128,7 @@ class mainCog(commands.Cog):
             )
             await asyncio.sleep(1)
             await ctx.send(embed=embed)
-
+        
 
 def setup(bot):
     bot.add_cog(mainCog(bot))

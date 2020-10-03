@@ -38,7 +38,6 @@ class mainCog(commands.Cog):
                 ctx.message,
                 f"Purge command was used by {ctx.author} to purge {limit} messages"
             )
-        file.close()
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
@@ -169,6 +168,35 @@ class mainCog(commands.Cog):
             json.dump(data, tf)
         await ctx.send('Channel set successfully!')
 
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def mute(self, ctx, member: discord.Member=None, *, reason="no specific reason"):
+        roleList = ctx.guild.roles
+        if member is None:
+            await ctx.send(f"{ctx.author} type `/mute @user_you_want_to_mute reason(optional but recommended)`.")
+        for role in roleList:
+            if role.name == "muted":
+                await member.add_roles(role)
+                await ctx.send(f"{member.mention} was muted by {ctx.author.mention} for **{reason}**.")
+                await asyncio.sleep(1)
+                await ctx.message.delete()
+                return
+        await ctx.guild.create_role(name="muted", permissions=discord.Permissions(permissions=0), color=discord.Color.default())
+        await self.mute(ctx, member, reason=reason)
+    
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def unmute(self, ctx, member:discord.Member=None, *, reason="no specific reason"):
+        if member is None:
+            await ctx.send(f"{ctx.author} type `/unmute @user_you_want_to_unmute reason(optional but recommended)`.")
+        for role in member.roles:
+            if role.name == "muted":
+                await member.remove_roles(role)
+                await ctx.send(f"{member.mention} was unmuted by {ctx.author.mention} for **{reason}**.")
+                return
+        await ctx.send(f"{member.mention} is not muted!")
+        await asyncio.sleep(1)
+        await ctx.message.delete()
 
 def setup(bot):
     bot.add_cog(mainCog(bot))

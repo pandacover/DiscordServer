@@ -1,4 +1,5 @@
 import discord, json, asyncio, datetime
+from aiohttp import ClientSession
 from discord.ext import commands
 from discord.ext.commands import Greedy
 
@@ -89,6 +90,29 @@ class mainCog(commands.Cog, name="help"):
                     await self.bot.get_guild(756865168054681630).get_channel(
                         756865168499015684).send(embed=embed2)
 
+    @commands.command()
+    async def search(self, ctx, *, search=None):
+        api_key="AIzaSyDwVYQrQ45qIzpHJ23qWDUCxZ46b_pBkVs"
+        url=f'https://www.googleapis.com/customsearch/v1?key={api_key}&cx=ccf6cea7f214e3d0c&q={search}'
+        if search is not None:
+            async with ClientSession() as session:
+                async with session.get(url, headers={}) as r:
+                    data = await r.json()
+                    index=0
+                    result=discord.Embed(color=discord.Color.green())
+                    
+                    while index < len(data):
+                        result.add_field(name=f"Search Result {index+1}", value=f'[{data["items"][index]["title"]}]({data["items"][index]["link"]})', inline=False)
+                        index += 1
+                    result.add_field(name="Caution: Read before clicking any link.", value="The search is powered by `googlesearchapi` but neither they nor us will take any responsibilty for any kind of mishappening. Please click the link only if you trust `Google`. Learn more about [googlesearchapi here](https://developers.google.com/custom-search/docs/overview).")
+                    result.set_footer(text="Powered by OR and googleapi.", icon_url=ctx.author.avatar_url)
+                    result.set_author(name=f"Search result for {search}.", icon_url="https://bit.ly/3nesR3A")
+
+                    await ctx.send(embed=result)
+        else:
+            await ctx.send('> Example: `/search Discord` to get details about term Discord.')
+
 
 def setup(bot):
     bot.add_cog(mainCog(bot))
+#AIzaSyDwVYQrQ45qIzpHJ23qWDUCxZ46b_pBkVs
